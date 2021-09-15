@@ -4,6 +4,7 @@ from includes import ssh_user, ssh_password, ssh_target, urls, waittime
 from netmiko import ConnectHandler
 import requests
 from time import sleep
+from datetime import datetime
 
 def run_ios_command(device_type, host, username, password, command):
 
@@ -17,21 +18,33 @@ def run_ios_command(device_type, host, username, password, command):
 
 if __name__ == '__main__':
 
+    t = datetime.now()
+
+    filename = f'{t.month}-{t.day}.{t.hour}:{t.minute}.chatbot.log'
+
     while True:
+
+        t = datetime.now()
+
+        outfile = open(filename, 'a')
+
+        outfile.write(f'{t.month}/{t.day} {t.hour}:{t.minute}\n')
 
         # Get all websites and print status codes
 
         for x in urls:
             try:
                 junk = requests.get(x, timeout=20)
-                print(f'{x}: {junk.status_code} - {junk.reason}')
+                outfile.write(f'{x}: {junk.status_code} - {junk.reason}\n')
             except Exception as e:
-                print(f'\n{x}: Python Exception Error [{e}]\n')
+                outfile.write(f'{x}: Python Exception Error [{e}]\n')
 
         # Get SSH data
 
-        output = run_ios_command('cisco_ios', ssh_target, ssh_user, ssh_password, 'show int | t')
-        print(output)
+        output = run_ios_command('cisco_ios', ssh_target, ssh_user, ssh_password, 'show running')
+        outfile.write(output.split('\n',2)[1]+'\n')
+
+        outfile.close()
 
         print(f'\nThis test will re-run in {waittime} seconds.  Break to exit.')
         sleep(waittime)

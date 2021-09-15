@@ -8,6 +8,10 @@ ssh_password = 'password'
 
 # URLS to pull
 urls=[
-	'http://www.twitter.com',
-	'http://www.linkedin.com',
-    'http://www.google.com']
+	'https://twitter.com',
+	'https://www.linkedin.com',
+	'https://www.office.com',
+	'https://www.microsoft.com/en-us/microsoft-365',
+	'https://www.walmart.com/grocery/',
+	'https://www.cisco.com',
+	'https://www.google.com']
