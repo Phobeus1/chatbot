@@ -1,14 +1,18 @@
 # chatbot
-Python Script for generating HTTP and SSH traffic in a lab.  Pulls a list of web pages that you define and logs into Cisco device and runs a command.
+Python Script for generating HTTP and SSH traffic in a lab.
 
-Results of the tests are logged in a timestamped log file.
+- Pulls a list of web pages that you define
+- Logs into a list of Cisco devices and runs a command.
+- Web or SSH tests can be disabled.
+- Runs on a specified period for a specified duration or indefinitely
+- Results of the tests are logged in a timestamped log file.
 
 # Instructions:
 - Install Requirements
 
 `pip install -r requirements`
 
-- Edit settings.py file to specify URLs and SSH information
+- Edit settings.py file to specify URLs, SSH information, period, and duration
 
 - Run using python3
 
