@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from includes import *
+from settings import *
 from netmiko import ConnectHandler
 import requests
 from time import sleep

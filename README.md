@@ -6,7 +6,7 @@ Python Script for generating HTTP and SSH traffic in a lab.  Pulls a list of web
 
 `pip install -r requirements`
 
-- Edit includes.py file to specify URLs and SSH information
+- Edit settings.py file to specify URLs and SSH information
 
 - Run using python3
 
