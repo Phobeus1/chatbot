@@ -1,6 +1,6 @@
-#!python3
+#!/usr/bin/python3
 
-from includes import ssh_user, ssh_password, ssh_target, urls, waittime
+from includes import *
 from netmiko import ConnectHandler
 import requests
 from time import sleep
@@ -13,8 +13,11 @@ def run_ios_command(device_type, host, username, password, command):
 
     try:
         net_connect = ConnectHandler(device_type=device_type, host=host, username=username, password=password)
-        output = net_connect.send_command(command).split('\n',2)[1]+'\n'
+        output = net_connect.send_command(command)
         net_connect.disconnect()
+        output = f'{host}:{command}:\n' + output
+        output = output.splitlines()
+        output = '\n'.join(str(elem) for elem in output[0:min(4, len(output))]) + '\n'
     except Exception as e:
         output = e.args[0]
 
@@ -23,32 +26,42 @@ def run_ios_command(device_type, host, username, password, command):
 if __name__ == '__main__':
 
     t = datetime.now()
+    filename = f'{t.month:02}-{t.day:02}.{t.hour:02}:{t.minute:02}.chatbot.log'
+    if 'duration' in globals():
+        iterations = int(duration*60/waittime)
+    else:
+        iterations = -1
+    if 'urls' not in globals():
+        urls =[]
+    if 'ssh_targets' not in globals():
+        ssh_targets = []
 
-    filename = f'{t.month}-{t.day}.{t.hour}:{t.minute}.chatbot.log'
+    while iterations != 0:
 
-    while True:
-
+        iterations -= 1
         t = datetime.now()
-
         outfile = open(filename, 'a')
-
-        outfile.write(f'{t.month}/{t.day} {t.hour}:{t.minute}\n')
+        outfile.write(f'{t.month:02}/{t.day:02} {t.hour:02}:{t.minute:02}\n')
 
         # Get all websites and print status codes
 
-        for x in urls:
+        for url in urls:
             try:
-                junk = requests.get(x, timeout=20)
-                outfile.write(f'{x}: {junk.status_code} - {junk.reason}\n')
+                junk = requests.get(url, timeout=20)
+                outfile.write(f'{url}: {junk.status_code} - {junk.reason}\n')
             except Exception as e:
-                outfile.write(f'{x}: Python Exception Error [{e}]\n')
+                outfile.write(f'{url}: Python Exception Error [{e}]\n')
 
         # Get SSH data
 
-        output = run_ios_command('cisco_ios', ssh_target, ssh_user, ssh_password, 'show running')
-        outfile.write(output)
+        for ssh_target in ssh_targets:
+            output = run_ios_command('cisco_ios', ssh_target, ssh_user, ssh_password, command)
+            outfile.write(output)
+
         outfile.close()
 
-        print(f'\nThis test will re-run in {waittime} seconds.  Break to exit.')
+        print()
+        if iterations > 0:
+            print(f'This test will run {iterations} more time(s).')
+        print(f'This test will re-run in {waittime} seconds.  Break to exit.')
         sleep(waittime)
-
