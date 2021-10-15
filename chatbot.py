@@ -66,3 +66,5 @@ if __name__ == '__main__':
         if iterations != 0:
             print(f'This test will re-run in {waittime} seconds.  Break to exit.')
             sleep(waittime)
+
+    print('Test complete.')
