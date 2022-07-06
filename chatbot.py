@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
 from settings import *
-from netmiko import ConnectHandler
+if 'ssh_targets' in globals():
+    if ssh_targets != []:
+        from netmiko import ConnectHandler
+else:
+    ssh_targets = []
 import requests
 from time import sleep
 from datetime import datetime
@@ -27,14 +31,15 @@ if __name__ == '__main__':
 
     t = datetime.now()
     filename = f'{t.month:02}-{t.day:02}.{t.hour:02}:{t.minute:02}.chatbot.log'
+    print(f'HTTP Test Targets\n{urls}')
+    print(f'SSH Test Targets\n{ssh_targets}')
+    print(f'Test results are being logged to {filename}')
     if 'duration' in globals():
         iterations = int(duration*60/waittime)
     else:
         iterations = -1
     if 'urls' not in globals():
         urls =[]
-    if 'ssh_targets' not in globals():
-        ssh_targets = []
 
     while iterations != 0:
 
