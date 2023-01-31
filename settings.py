@@ -2,7 +2,7 @@
 # Duration is time in minutes that the test continues to run
 # If duration is commented out, test runs indefinitely
 
-waittime = 60
+wait_time = 60
 duration = 60
 
 # IOS device and credentials
