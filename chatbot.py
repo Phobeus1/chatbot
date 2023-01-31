@@ -1,4 +1,4 @@
-#!python3
+#!/usr/bin/python3
 
 from settings import *
 if 'ssh_targets' in globals():
