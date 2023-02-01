@@ -25,5 +25,11 @@ urls=[
 	'https://www.office.com',
 	'https://www.microsoft.com/en-us/microsoft-365',
 	'https://www.cisco.com',
-	'https://www.google.com'
+	'https://www.google.com',
+	'https://docs.google.com/spreadsheets/d/1rG2vCzmlmfsAEp2RU6XTVTLXx8J0ekPbCIpgzbdeJFQ/edit?usp=sharing',
+	'https://www.dropbox.com/s/zlg3hw01yyvorcg/Adirondack%20Chair%20Plans%20-%20Popular%20Mechanics.pdf?dl=0',
+	'https://console.aws.amazon.com',
+	'https://signup.cloud.oracle.com/',
+	'https://signin.webex.com',
+	'https://web.webex.com/sign-in'
 ]
