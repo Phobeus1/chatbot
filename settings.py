@@ -20,11 +20,11 @@ command = 'show running'
 # If urls is an empty set [] or commented out this test is skipped
 
 urls=[
-	'https://x.com/',
+	'https://test.salesforce.com/',
 	'https://portal.azure.com/#home',
 	'https://zoom.us/test',
 	'https://test.salesforce.com/',
-	'https://venmo.com/',
+	'https://global.gotomeeting.com/join/406552062',
 	'https://teams.microsoft.com/v2/',
 	'https://www.linkedin.com',
 	'https://www.office.com',
